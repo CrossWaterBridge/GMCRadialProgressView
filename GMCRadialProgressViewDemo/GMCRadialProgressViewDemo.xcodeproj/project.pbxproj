@@ -1,0 +1,336 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D97665D5188D977100D78072 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97665D4188D977100D78072 /* Foundation.framework */; };
+		D97665D7188D977100D78072 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97665D6188D977100D78072 /* CoreGraphics.framework */; };
+		D97665D9188D977100D78072 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D97665D8188D977100D78072 /* UIKit.framework */; };
+		D97665DF188D977100D78072 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D97665DD188D977100D78072 /* InfoPlist.strings */; };
+		D97665E1188D977100D78072 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D97665E0188D977100D78072 /* main.m */; };
+		D97665E5188D977100D78072 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D97665E4188D977100D78072 /* AppDelegate.m */; };
+		D97665E7188D977100D78072 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D97665E6188D977100D78072 /* Images.xcassets */; };
+		D9766609188D97FA00D78072 /* GMCRadialProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D9766606188D97FA00D78072 /* GMCRadialProgressLayer.m */; };
+		D976660A188D97FA00D78072 /* GMCRadialProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9766608188D97FA00D78072 /* GMCRadialProgressView.m */; };
+		D976660D188D991900D78072 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D976660C188D991900D78072 /* DemoViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D97665D1188D977100D78072 /* GMCRadialProgressViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GMCRadialProgressViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D97665D4188D977100D78072 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D97665D6188D977100D78072 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D97665D8188D977100D78072 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D97665DC188D977100D78072 /* GMCRadialProgressViewDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GMCRadialProgressViewDemo-Info.plist"; sourceTree = "<group>"; };
+		D97665DE188D977100D78072 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D97665E0188D977100D78072 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D97665E2188D977100D78072 /* GMCRadialProgressViewDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GMCRadialProgressViewDemo-Prefix.pch"; sourceTree = "<group>"; };
+		D97665E3188D977100D78072 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D97665E4188D977100D78072 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D97665E6188D977100D78072 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D9766605188D97FA00D78072 /* GMCRadialProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMCRadialProgressLayer.h; sourceTree = "<group>"; };
+		D9766606188D97FA00D78072 /* GMCRadialProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMCRadialProgressLayer.m; sourceTree = "<group>"; };
+		D9766607188D97FA00D78072 /* GMCRadialProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMCRadialProgressView.h; sourceTree = "<group>"; };
+		D9766608188D97FA00D78072 /* GMCRadialProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMCRadialProgressView.m; sourceTree = "<group>"; };
+		D976660B188D991900D78072 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
+		D976660C188D991900D78072 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D97665CE188D977100D78072 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D97665D7188D977100D78072 /* CoreGraphics.framework in Frameworks */,
+				D97665D9188D977100D78072 /* UIKit.framework in Frameworks */,
+				D97665D5188D977100D78072 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D97665C8188D977100D78072 = {
+			isa = PBXGroup;
+			children = (
+				D97665DA188D977100D78072 /* GMCRadialProgressViewDemo */,
+				D9766603188D97BF00D78072 /* Vendor */,
+				D97665D3188D977100D78072 /* Frameworks */,
+				D97665D2188D977100D78072 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D97665D2188D977100D78072 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D97665D1188D977100D78072 /* GMCRadialProgressViewDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D97665D3188D977100D78072 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D97665D4188D977100D78072 /* Foundation.framework */,
+				D97665D6188D977100D78072 /* CoreGraphics.framework */,
+				D97665D8188D977100D78072 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D97665DA188D977100D78072 /* GMCRadialProgressViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				D97665E3188D977100D78072 /* AppDelegate.h */,
+				D97665E4188D977100D78072 /* AppDelegate.m */,
+				D976660B188D991900D78072 /* DemoViewController.h */,
+				D976660C188D991900D78072 /* DemoViewController.m */,
+				D97665E6188D977100D78072 /* Images.xcassets */,
+				D97665DB188D977100D78072 /* Supporting Files */,
+			);
+			path = GMCRadialProgressViewDemo;
+			sourceTree = "<group>";
+		};
+		D97665DB188D977100D78072 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D97665DC188D977100D78072 /* GMCRadialProgressViewDemo-Info.plist */,
+				D97665DD188D977100D78072 /* InfoPlist.strings */,
+				D97665E0188D977100D78072 /* main.m */,
+				D97665E2188D977100D78072 /* GMCRadialProgressViewDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D9766603188D97BF00D78072 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				D9766604188D97FA00D78072 /* GMCRadialProgressView */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		D9766604188D97FA00D78072 /* GMCRadialProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				D9766607188D97FA00D78072 /* GMCRadialProgressView.h */,
+				D9766608188D97FA00D78072 /* GMCRadialProgressView.m */,
+				D9766605188D97FA00D78072 /* GMCRadialProgressLayer.h */,
+				D9766606188D97FA00D78072 /* GMCRadialProgressLayer.m */,
+			);
+			name = GMCRadialProgressView;
+			path = ../GMCRadialProgressView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D97665D0188D977100D78072 /* GMCRadialProgressViewDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D97665FD188D977100D78072 /* Build configuration list for PBXNativeTarget "GMCRadialProgressViewDemo" */;
+			buildPhases = (
+				D97665CD188D977100D78072 /* Sources */,
+				D97665CE188D977100D78072 /* Frameworks */,
+				D97665CF188D977100D78072 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GMCRadialProgressViewDemo;
+			productName = GMCRadialProgressViewDemo;
+			productReference = D97665D1188D977100D78072 /* GMCRadialProgressViewDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D97665C9188D977100D78072 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Galactic Megacorp";
+			};
+			buildConfigurationList = D97665CC188D977100D78072 /* Build configuration list for PBXProject "GMCRadialProgressViewDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D97665C8188D977100D78072;
+			productRefGroup = D97665D2188D977100D78072 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D97665D0188D977100D78072 /* GMCRadialProgressViewDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D97665CF188D977100D78072 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D97665DF188D977100D78072 /* InfoPlist.strings in Resources */,
+				D97665E7188D977100D78072 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D97665CD188D977100D78072 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D976660A188D97FA00D78072 /* GMCRadialProgressView.m in Sources */,
+				D97665E5188D977100D78072 /* AppDelegate.m in Sources */,
+				D97665E1188D977100D78072 /* main.m in Sources */,
+				D976660D188D991900D78072 /* DemoViewController.m in Sources */,
+				D9766609188D97FA00D78072 /* GMCRadialProgressLayer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D97665DD188D977100D78072 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D97665DE188D977100D78072 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D97665FB188D977100D78072 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D97665FC188D977100D78072 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D97665FE188D977100D78072 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GMCRadialProgressViewDemo/GMCRadialProgressViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "GMCRadialProgressViewDemo/GMCRadialProgressViewDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D97665FF188D977100D78072 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GMCRadialProgressViewDemo/GMCRadialProgressViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "GMCRadialProgressViewDemo/GMCRadialProgressViewDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D97665CC188D977100D78072 /* Build configuration list for PBXProject "GMCRadialProgressViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D97665FB188D977100D78072 /* Debug */,
+				D97665FC188D977100D78072 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D97665FD188D977100D78072 /* Build configuration list for PBXNativeTarget "GMCRadialProgressViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D97665FE188D977100D78072 /* Debug */,
+				D97665FF188D977100D78072 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D97665C9188D977100D78072 /* Project object */;
+}
