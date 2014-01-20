@@ -79,6 +79,7 @@
     
     switch (self.state) {
         case GMCRadialProgressLayerStateInactive:
+        case GMCRadialProgressLayerStateActive:
             self.outerRadius = 0;
             self.innerRadius = 0;
             break;

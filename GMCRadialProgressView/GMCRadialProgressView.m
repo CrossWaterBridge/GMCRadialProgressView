@@ -61,41 +61,23 @@
 }
 
 - (void)setState:(GMCRadialProgressViewState)state animated:(BOOL)animated completion:(void (^)(void))completion {
-    if (animated && state == GMCRadialProgressViewStateInProgress && !self.active && ![self.inactiveColor isEqual:self.activeColor]) {
-        self.active = YES;
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            self.layer.backgroundColor = self.activeColor.CGColor;
-        } completion:^(BOOL finished) {
-            [self setState:state animated:YES completion:completion];
-        }];
-    } else {
-        [CATransaction begin];
-        
-        if (animated) {
-            if (completion) {
-                [CATransaction setCompletionBlock:completion];
-            }
-        } else  {
-            [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    [CATransaction begin];
+    
+    if (animated) {
+        if (completion) {
+            [CATransaction setCompletionBlock:completion];
         }
-        
-        self.maskLayer.state = (GMCRadialProgressLayerState)state;
-        
-        switch (self.state) {
-            case GMCRadialProgressViewStateInactive:
-                self.active = NO;
-                break;
-            case GMCRadialProgressViewStateInProgress:
-            case GMCRadialProgressViewStateComplete:
-                self.active = YES;
-                break;
-        }
-        
-        self.layer.backgroundColor = (self.active ? self.activeColor.CGColor : self.inactiveColor.CGColor);
-        
-        [CATransaction commit];
+    } else  {
+        [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
     }
+    
+    self.maskLayer.state = (GMCRadialProgressLayerState)state;
+    
+    [UIView animateWithDuration:(animated ? 0.3 : 0) animations:^{
+        self.backgroundColor = (self.state != GMCRadialProgressViewStateInactive ? self.activeColor : self.inactiveColor);
+    }];
+    
+    [CATransaction commit];
 }
 
 - (GMCRadialProgressViewState)state {

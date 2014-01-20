@@ -74,9 +74,14 @@
 - (void)tapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
     if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         switch (self.radialProgressView.state) {
-            case GMCRadialProgressViewStateInactive:
-                [self.radialProgressView setState:GMCRadialProgressViewStateInProgress animated:YES completion:nil];
+            case GMCRadialProgressViewStateInactive: {
+                __weak GMCRadialProgressView *radialProgressView = self.radialProgressView;
+                [self.radialProgressView setState:GMCRadialProgressViewStateActive animated:YES completion:^{
+                    [radialProgressView setState:GMCRadialProgressViewStateInProgress animated:YES completion:nil];
+                }];
                 break;
+            }
+            case GMCRadialProgressViewStateActive:
             case GMCRadialProgressViewStateInProgress:
                 [self.radialProgressView setState:GMCRadialProgressViewStateInactive animated:YES completion:nil];
                 break;

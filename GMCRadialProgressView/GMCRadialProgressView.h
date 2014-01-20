@@ -22,6 +22,7 @@
 
 typedef NS_ENUM(NSInteger, GMCRadialProgressViewState) {
     GMCRadialProgressViewStateInactive,
+    GMCRadialProgressViewStateActive,
     GMCRadialProgressViewStateInProgress,
     GMCRadialProgressViewStateComplete,
 };

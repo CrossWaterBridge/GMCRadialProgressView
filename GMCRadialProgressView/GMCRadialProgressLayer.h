@@ -24,6 +24,7 @@
 
 typedef NS_ENUM(NSInteger, GMCRadialProgressLayerState) {
     GMCRadialProgressLayerStateInactive,
+    GMCRadialProgressLayerStateActive,
     GMCRadialProgressLayerStateInProgress,
     GMCRadialProgressLayerStateComplete,
 };
