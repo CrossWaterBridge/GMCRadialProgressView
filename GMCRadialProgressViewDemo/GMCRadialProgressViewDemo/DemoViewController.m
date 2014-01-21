@@ -74,21 +74,20 @@
 - (void)tapGestureRecognizer:(UITapGestureRecognizer *)tapGestureRecognizer {
     if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         switch (self.radialProgressView.state) {
-            case GMCRadialProgressViewStateInactive: {
+            case GMCRadialProgressViewStateInactive:
+                [self.radialProgressView setState:GMCRadialProgressViewStateInProgress progress:0 animated:YES completion:nil];
+                break;
+            case GMCRadialProgressViewStateInProgress: {
                 __weak GMCRadialProgressView *radialProgressView = self.radialProgressView;
-                [self.radialProgressView setState:GMCRadialProgressViewStateActive animated:YES completion:^{
-                    [radialProgressView setState:GMCRadialProgressViewStateInProgress animated:YES completion:nil];
+                [self.radialProgressView setState:GMCRadialProgressViewStateInactive progress:self.radialProgressView.progress animated:YES completion:^{
+                    [radialProgressView setState:GMCRadialProgressViewStateInactive progress:0 animated:NO completion:nil];
                 }];
                 break;
             }
-            case GMCRadialProgressViewStateActive:
-            case GMCRadialProgressViewStateInProgress:
-                [self.radialProgressView setState:GMCRadialProgressViewStateInactive animated:YES completion:nil];
-                break;
             case GMCRadialProgressViewStateComplete: {
                 __weak GMCRadialProgressView *radialProgressView = self.radialProgressView;
-                [self.radialProgressView setState:GMCRadialProgressViewStateInactive animated:YES completion:^{
-                    radialProgressView.progress = 0;
+                [self.radialProgressView setState:GMCRadialProgressViewStateInactive progress:self.radialProgressView.progress animated:YES completion:^{
+                    [radialProgressView setState:GMCRadialProgressViewStateInactive progress:0 animated:NO completion:nil];
                 }];
                 break;
             }
@@ -101,10 +100,10 @@
 - (void)timerFired:(NSTimer *)timer {
     if (self.radialProgressView.state == GMCRadialProgressViewStateInProgress) {
         float progress = MIN(self.radialProgressView.progress + (arc4random_uniform(3) / (float)10), 1);
-        [self.radialProgressView setProgress:progress animated:YES completion:nil];
+        [self.radialProgressView setState:GMCRadialProgressViewStateInProgress progress:progress animated:YES completion:nil];
         
         if (progress >= 1) {
-            [self.radialProgressView setState:GMCRadialProgressViewStateComplete animated:YES completion:nil];
+            [self.radialProgressView setState:GMCRadialProgressViewStateComplete progress:1 animated:YES completion:nil];
         }
     }
 }

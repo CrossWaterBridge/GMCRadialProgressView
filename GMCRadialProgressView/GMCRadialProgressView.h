@@ -21,9 +21,8 @@
 // THE SOFTWARE.
 
 typedef NS_ENUM(NSInteger, GMCRadialProgressViewState) {
-    GMCRadialProgressViewStateInactive,
-    GMCRadialProgressViewStateActive,
-    GMCRadialProgressViewStateInProgress,
+    GMCRadialProgressViewStateInactive = 0,
+    GMCRadialProgressViewStateInProgress = 2,
     GMCRadialProgressViewStateComplete,
 };
 
@@ -34,11 +33,9 @@ typedef NS_ENUM(NSInteger, GMCRadialProgressViewState) {
 @property (nonatomic, assign) float radiusRatio;
 @property (nonatomic, assign) CGFloat strokeWidth;
 
-@property (nonatomic, assign) GMCRadialProgressViewState state;
-@property (nonatomic, assign) float progress;
+@property (nonatomic, assign, readonly) GMCRadialProgressViewState state;
+@property (nonatomic, assign, readonly) float progress;
 
-- (void)setState:(GMCRadialProgressViewState)state animated:(BOOL)animated completion:(void (^)(void))completion;
-
-- (void)setProgress:(float)progress animated:(BOOL)animated completion:(void (^)(void))completion;
+- (void)setState:(GMCRadialProgressViewState)state progress:(float)progress animated:(BOOL)animated completion:(void (^)(void))completion;
 
 @end

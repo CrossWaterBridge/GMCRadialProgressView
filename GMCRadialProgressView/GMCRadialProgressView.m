@@ -23,12 +23,52 @@
 #import "GMCRadialProgressView.h"
 #import "GMCRadialProgressLayer.h"
 
+@interface GMCRadialProgressViewTransition : NSObject
+
+@property (nonatomic, assign) GMCRadialProgressLayerState state;
+@property (nonatomic, assign) float progress;
+@property (nonatomic, copy) void (^completionBlock)(void);
+
++ (instancetype)transitionWithState:(GMCRadialProgressLayerState)state progress:(float)progress completion:(void (^)(void))completion;
+
+@end
+
+@implementation GMCRadialProgressViewTransition
+
++ (instancetype)transitionWithState:(GMCRadialProgressLayerState)state progress:(float)progress completion:(void (^)(void))completion {
+    GMCRadialProgressViewTransition *transition = [[GMCRadialProgressViewTransition alloc] init];
+    transition.state = state;
+    
+    switch (transition.state) {
+        case GMCRadialProgressLayerStateInactive:
+            transition.progress = progress;
+            break;
+        case GMCRadialProgressLayerStateActive:
+            transition.progress = 0;
+            break;
+        case GMCRadialProgressLayerStateInProgress:
+            transition.progress = progress;
+            break;
+        case GMCRadialProgressLayerStateComplete:
+            transition.progress = 1;
+            break;
+    }
+    
+    transition.completionBlock = completion;
+    
+    return transition;
+}
+
+@end
+
 @interface GMCRadialProgressView ()
 
 @property (nonatomic, strong) CALayer *colorLayer;
 @property (nonatomic, strong) GMCRadialProgressLayer *maskLayer;
 @property (nonatomic, strong) id inactiveContents;
 @property (nonatomic, strong) id activeContents;
+
+@property (nonatomic, strong) NSMutableArray *queuedTransitions;
 
 @end
 
@@ -53,7 +93,9 @@
             maskLayer;
         });
         
-        self.state = GMCRadialProgressLayerStateInactive;
+        self.queuedTransitions = [NSMutableArray array];
+        
+        [self setState:GMCRadialProgressViewStateInactive progress:0 animated:NO completion:nil];
     }
     return self;
 }
@@ -98,50 +140,111 @@
     return self.maskLayer.strokeWidth;
 }
 
-- (void)setState:(GMCRadialProgressViewState)state {
-    [self setState:state animated:NO completion:nil];
+- (void)setState:(GMCRadialProgressViewState)state progress:(float)progress animated:(BOOL)animated completion:(void (^)(void))completion {
+    BOOL performNextTransition = NO;
+    if (!animated) {
+        [self.queuedTransitions removeAllObjects];
+    }
+    if ([self.queuedTransitions count] == 0) {
+        performNextTransition = YES;
+    }
+    
+    GMCRadialProgressViewTransition *transition = [GMCRadialProgressViewTransition transitionWithState:(GMCRadialProgressLayerState)state progress:progress completion:completion];
+    [self.queuedTransitions addObject:transition];
+    [self massageQueuedTransitions];
+    
+    if (performNextTransition) {
+        [self performNextTransitionAnimated:animated];
+    }
 }
 
-- (void)setState:(GMCRadialProgressViewState)state animated:(BOOL)animated completion:(void (^)(void))completion {
+- (void)massageQueuedTransitions {
+    if ([self.queuedTransitions count] > 0) {
+        GMCRadialProgressViewTransition *transition1 = self.queuedTransitions[[self.queuedTransitions count] - 1];
+        
+        if ([self.queuedTransitions count] > 1) {
+            GMCRadialProgressViewTransition *transition2 = self.queuedTransitions[[self.queuedTransitions count] - 2];
+            
+            if (transition1.state == GMCRadialProgressLayerStateInProgress &&
+                transition2.state == GMCRadialProgressLayerStateInProgress &&
+                (transition1.progress == transition2.progress || transition2.progress != 0)) {
+                [self.queuedTransitions removeObject:transition2];
+            }
+        }
+    
+        if (transition1.state == GMCRadialProgressLayerStateInProgress) {
+            if ([self.queuedTransitions count] > 1) {
+                GMCRadialProgressViewTransition *transition2 = self.queuedTransitions[[self.queuedTransitions count] - 2];
+                
+                if (transition2.state == GMCRadialProgressViewStateInactive) {
+                    GMCRadialProgressViewTransition *transition2 = [GMCRadialProgressViewTransition transitionWithState:GMCRadialProgressLayerStateActive progress:0 completion:nil];
+                    [self.queuedTransitions insertObject:transition2 atIndex:[self.queuedTransitions count] - 1];
+                }
+            } else {
+                if (self.state == GMCRadialProgressViewStateInactive) {
+                    GMCRadialProgressViewTransition *transition2 = [GMCRadialProgressViewTransition transitionWithState:GMCRadialProgressLayerStateActive progress:0 completion:nil];
+                    [self.queuedTransitions insertObject:transition2 atIndex:[self.queuedTransitions count] - 1];
+                }
+            }
+        }
+        
+        if (transition1.state == GMCRadialProgressLayerStateComplete) {
+            if ([self.queuedTransitions count] > 1) {
+                GMCRadialProgressViewTransition *transition2 = self.queuedTransitions[[self.queuedTransitions count] - 2];
+                
+                if (transition2.state == GMCRadialProgressViewStateInProgress) {
+                    if (transition2.progress == 0) {
+                        GMCRadialProgressViewTransition *transition3 = [GMCRadialProgressViewTransition transitionWithState:GMCRadialProgressLayerStateInProgress progress:1 completion:nil];
+                        [self.queuedTransitions insertObject:transition3 atIndex:[self.queuedTransitions count] - 1];
+                    } else {
+                        transition2.progress = 1;
+                    }
+                }
+            } else {
+                if (self.state == GMCRadialProgressViewStateInProgress) {
+                    GMCRadialProgressViewTransition *transition2 = [GMCRadialProgressViewTransition transitionWithState:GMCRadialProgressLayerStateInProgress progress:1 completion:nil];
+                    [self.queuedTransitions insertObject:transition2 atIndex:[self.queuedTransitions count] - 1];
+                }
+            }
+        }
+    }
+}
+
+- (void)performTransition:(GMCRadialProgressViewTransition *)transition animated:(BOOL)animated {
     [CATransaction begin];
+    [CATransaction setCompletionBlock:^{
+        if (transition.completionBlock) {
+            transition.completionBlock();
+        }
+        
+        [self.queuedTransitions removeObject:transition];
+        [self performNextTransitionAnimated:YES];
+    }];
     
     if (animated) {
-        if (completion) {
-            [CATransaction setCompletionBlock:completion];
-        }
-    } else  {
+        [CATransaction setAnimationDuration:0.3];
+    } else {
         [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
     }
     
-    self.maskLayer.state = (GMCRadialProgressLayerState)state;
+    NSLog(@"%d %f", transition.state, transition.progress);
+    self.maskLayer.state = transition.state;
+    self.maskLayer.progress = transition.progress;
     
     self.colorLayer.contents = (self.state != GMCRadialProgressViewStateInactive ? self.activeContents : self.inactiveContents);
     
     [CATransaction commit];
 }
 
+- (void)performNextTransitionAnimated:(BOOL)animated {
+    GMCRadialProgressViewTransition *nextTransition = [self.queuedTransitions firstObject];
+    if (nextTransition) {
+        [self performTransition:nextTransition animated:animated];
+    }
+}
+
 - (GMCRadialProgressViewState)state {
     return (GMCRadialProgressViewState)self.maskLayer.state;
-}
-
-- (void)setProgress:(float)progress {
-    [self setProgress:progress animated:NO completion:nil];
-}
-
-- (void)setProgress:(float)progress animated:(BOOL)animated completion:(void (^)(void))completion {
-    [CATransaction begin];
-    
-    if (animated) {
-        if (completion) {
-            [CATransaction setCompletionBlock:completion];
-        }
-    } else  {
-        [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-    }
-    
-    self.maskLayer.progress = progress;
-    
-    [CATransaction commit];
 }
 
 - (float)progress {
