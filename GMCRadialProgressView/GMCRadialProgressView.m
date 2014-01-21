@@ -227,7 +227,6 @@
         [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
     }
     
-    NSLog(@"%d %f", transition.state, transition.progress);
     self.maskLayer.state = transition.state;
     self.maskLayer.progress = transition.progress;
     
