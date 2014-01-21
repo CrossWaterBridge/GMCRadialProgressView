@@ -52,6 +52,8 @@
             self.progress = other.progress;
             self.outerRadius = other.outerRadius;
             self.innerRadius = other.innerRadius;
+            self.radiusRatio = other.radiusRatio;
+            self.strokeWidth = other.strokeWidth;
         }
     }
     return self;

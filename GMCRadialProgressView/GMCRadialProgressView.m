@@ -25,8 +25,10 @@
 
 @interface GMCRadialProgressView ()
 
+@property (nonatomic, strong) CALayer *colorLayer;
 @property (nonatomic, strong) GMCRadialProgressLayer *maskLayer;
-@property (nonatomic, assign) BOOL active;
+@property (nonatomic, strong) id inactiveContents;
+@property (nonatomic, strong) id activeContents;
 
 @end
 
@@ -37,11 +39,17 @@
         self.inactiveColor = [UIColor colorWithWhite:1 alpha:0.9f];
         self.activeColor = [UIColor colorWithWhite:0 alpha:0.7f];
         
+        self.colorLayer = ({
+            CALayer *colorLayer = [[CALayer alloc] init];
+            [self.layer addSublayer:colorLayer];
+            colorLayer;
+        });
+        
         self.maskLayer = ({
             GMCRadialProgressLayer *maskLayer = [[GMCRadialProgressLayer alloc] init];
             maskLayer.contentsScale = [UIScreen mainScreen].scale;
             maskLayer.opaque = NO;
-            self.layer.mask = maskLayer;
+            self.colorLayer.mask = maskLayer;
             maskLayer;
         });
         
@@ -53,7 +61,41 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    
+    self.colorLayer.frame = self.bounds;
     self.maskLayer.frame = self.bounds;
+    
+    [CATransaction commit];
+}
+
+- (void)setInactiveColor:(UIColor *)inactiveColor {
+    _inactiveColor = inactiveColor;
+    
+    self.inactiveContents = [self layerContentsWithColor:self.inactiveColor];
+}
+
+- (void)setActiveColor:(UIColor *)activeColor {
+    _activeColor = activeColor;
+    
+    self.activeContents = [self layerContentsWithColor:self.activeColor];
+}
+
+- (void)setRadiusRatio:(float)radiusRatio {
+    self.maskLayer.radiusRatio = radiusRatio;
+}
+
+- (float)radiusRatio {
+    return self.maskLayer.radiusRatio;
+}
+
+- (void)setStrokeWidth:(CGFloat)strokeWidth {
+    self.maskLayer.strokeWidth = strokeWidth;
+}
+
+- (CGFloat)strokeWidth {
+    return self.maskLayer.strokeWidth;
 }
 
 - (void)setState:(GMCRadialProgressViewState)state {
@@ -73,9 +115,7 @@
     
     self.maskLayer.state = (GMCRadialProgressLayerState)state;
     
-    [UIView animateWithDuration:(animated ? 0.3 : 0) animations:^{
-        self.backgroundColor = (self.state != GMCRadialProgressViewStateInactive ? self.activeColor : self.inactiveColor);
-    }];
+    self.colorLayer.contents = (self.state != GMCRadialProgressViewStateInactive ? self.activeContents : self.inactiveContents);
     
     [CATransaction commit];
 }
@@ -106,6 +146,20 @@
 
 - (float)progress {
     return self.maskLayer.progress;
+}
+
+- (id)layerContentsWithColor:(UIColor *)color {
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(1, 1), NO, 1);
+    
+    [color setFill];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextFillRect(context, CGRectMake(0, 0, 1, 1));
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return (id)image.CGImage;
 }
 
 @end

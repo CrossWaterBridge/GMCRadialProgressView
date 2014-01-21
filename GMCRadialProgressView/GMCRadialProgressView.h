@@ -31,6 +31,8 @@ typedef NS_ENUM(NSInteger, GMCRadialProgressViewState) {
 
 @property (nonatomic, strong) UIColor *inactiveColor;
 @property (nonatomic, strong) UIColor *activeColor;
+@property (nonatomic, assign) float radiusRatio;
+@property (nonatomic, assign) CGFloat strokeWidth;
 
 @property (nonatomic, assign) GMCRadialProgressViewState state;
 @property (nonatomic, assign) float progress;
