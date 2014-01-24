@@ -116,12 +116,16 @@
     _inactiveColor = inactiveColor;
     
     self.inactiveContents = [self layerContentsWithColor:self.inactiveColor];
+    
+    [self updateContentsAnimated:NO];
 }
 
 - (void)setActiveColor:(UIColor *)activeColor {
     _activeColor = activeColor;
     
     self.activeContents = [self layerContentsWithColor:self.activeColor];
+    
+    [self updateContentsAnimated:NO];
 }
 
 - (void)setRadiusRatio:(float)radiusRatio {
@@ -230,7 +234,7 @@
     self.maskLayer.state = transition.state;
     self.maskLayer.progress = transition.progress;
     
-    self.colorLayer.contents = (self.state != GMCRadialProgressViewStateInactive ? self.activeContents : self.inactiveContents);
+    [self updateContentsAnimated:animated];
     
     [CATransaction commit];
 }
@@ -248,6 +252,19 @@
 
 - (float)progress {
     return self.maskLayer.progress;
+}
+
+- (void)updateContentsAnimated:(BOOL)animated {
+    if (!animated) {
+        [CATransaction begin];
+        [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    }
+    
+    self.colorLayer.contents = (self.state != GMCRadialProgressViewStateInactive ? self.activeContents : self.inactiveContents);
+    
+    if (!animated) {
+        [CATransaction commit];
+    }
 }
 
 - (id)layerContentsWithColor:(UIColor *)color {
