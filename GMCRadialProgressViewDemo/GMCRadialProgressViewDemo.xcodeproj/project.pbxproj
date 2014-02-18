@@ -292,6 +292,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GMCRadialProgressViewDemo/GMCRadialProgressViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "GMCRadialProgressViewDemo/GMCRadialProgressViewDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -305,6 +306,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GMCRadialProgressViewDemo/GMCRadialProgressViewDemo-Prefix.pch";
 				INFOPLIST_FILE = "GMCRadialProgressViewDemo/GMCRadialProgressViewDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -329,6 +331,7 @@
 				D97665FF188D977100D78072 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
