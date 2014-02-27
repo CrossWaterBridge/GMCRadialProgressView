@@ -76,28 +76,39 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-        self.inactiveColor = [UIColor colorWithWhite:1 alpha:0.9f];
-        self.activeColor = [UIColor colorWithWhite:0 alpha:0.7f];
-        
-        self.colorLayer = ({
-            CALayer *colorLayer = [[CALayer alloc] init];
-            [self.layer addSublayer:colorLayer];
-            colorLayer;
-        });
-        
-        self.maskLayer = ({
-            GMCRadialProgressLayer *maskLayer = [[GMCRadialProgressLayer alloc] init];
-            maskLayer.contentsScale = [UIScreen mainScreen].scale;
-            maskLayer.opaque = NO;
-            self.colorLayer.mask = maskLayer;
-            maskLayer;
-        });
-        
-        self.queuedTransitions = [NSMutableArray array];
-        
-        [self setState:GMCRadialProgressViewStateInactive progress:0 animated:NO completion:nil];
+        [self commonInit];
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    if ((self = [super initWithCoder:aDecoder])) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit {
+    self.inactiveColor = [UIColor colorWithWhite:1 alpha:0.9f];
+    self.activeColor = [UIColor colorWithWhite:0 alpha:0.7f];
+    
+    self.colorLayer = ({
+        CALayer *colorLayer = [[CALayer alloc] init];
+        [self.layer addSublayer:colorLayer];
+        colorLayer;
+    });
+    
+    self.maskLayer = ({
+        GMCRadialProgressLayer *maskLayer = [[GMCRadialProgressLayer alloc] init];
+        maskLayer.contentsScale = [UIScreen mainScreen].scale;
+        maskLayer.opaque = NO;
+        self.colorLayer.mask = maskLayer;
+        maskLayer;
+    });
+    
+    self.queuedTransitions = [NSMutableArray array];
+    
+    [self setState:GMCRadialProgressViewStateInactive progress:0 animated:NO completion:nil];
 }
 
 - (void)layoutSubviews {
