@@ -35,14 +35,16 @@
 @dynamic outerRadius;
 @dynamic innerRadius;
 
-- (id)init {
-    if ((self = [self initWithLayer:nil])) {
+- (instancetype)init {
+    if (self = [super init]) {
+        _radiusRatio = 0.5f;
+        _strokeWidth = 3;
     }
     return self;
 }
 
-- (id)initWithLayer:(id)layer {
-    if ((self = [super initWithLayer:layer])) {
+- (instancetype)initWithLayer:(id)layer {
+    if (self = [super initWithLayer:layer]) {
         _radiusRatio = 0.5f;
         _strokeWidth = 3;
         
