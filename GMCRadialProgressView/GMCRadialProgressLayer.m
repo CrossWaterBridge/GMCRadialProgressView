@@ -37,16 +37,14 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _radiusRatio = 0.5f;
-        _strokeWidth = 3;
+        [self setup];
     }
     return self;
 }
 
 - (instancetype)initWithLayer:(id)layer {
     if (self = [super initWithLayer:layer]) {
-        _radiusRatio = 0.5f;
-        _strokeWidth = 3;
+        [self setup];
         
         if ([layer isKindOfClass:[GMCRadialProgressLayer class]]) {
             GMCRadialProgressLayer *other = (GMCRadialProgressLayer *)layer;
@@ -59,6 +57,11 @@
         }
     }
     return self;
+}
+
+- (void)setup {
+    _radiusRatio = 0.5f;
+    _strokeWidth = 3;
 }
 
 - (void)setState:(GMCRadialProgressLayerState)state {
