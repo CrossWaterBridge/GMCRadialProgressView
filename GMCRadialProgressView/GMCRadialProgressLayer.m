@@ -35,16 +35,16 @@
 @dynamic outerRadius;
 @dynamic innerRadius;
 
-- (id)init {
-    if ((self = [self initWithLayer:nil])) {
+- (instancetype)init {
+    if (self = [super init]) {
+        [self setup];
     }
     return self;
 }
 
-- (id)initWithLayer:(id)layer {
-    if ((self = [super initWithLayer:layer])) {
-        _radiusRatio = 0.5f;
-        _strokeWidth = 3;
+- (instancetype)initWithLayer:(id)layer {
+    if (self = [super initWithLayer:layer]) {
+        [self setup];
         
         if ([layer isKindOfClass:[GMCRadialProgressLayer class]]) {
             GMCRadialProgressLayer *other = (GMCRadialProgressLayer *)layer;
@@ -57,6 +57,11 @@
         }
     }
     return self;
+}
+
+- (void)setup {
+    _radiusRatio = 0.5f;
+    _strokeWidth = 3;
 }
 
 - (void)setState:(GMCRadialProgressLayerState)state {
